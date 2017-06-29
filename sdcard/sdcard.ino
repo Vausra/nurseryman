@@ -10,13 +10,13 @@
  * MOSI - pin 11
  * MISO - pin 12
  * CLK - pin 13
- * CS - pin 4
+ * CS - pin 10
  */
 
 #include <SPI.h>
 #include <SD.h>
 
-const int chipSelect = 4;
+const int chipSelect = 10;
 
 void setup() {
   Serial.begin(9600);
@@ -36,16 +36,16 @@ void setup() {
 }
 
 void loop() {
-  String dataString = "";
+  String dataString = "Hallo";
 
   // read three sensors and append to the string:
-  for (int analogPin = 0; analogPin < 3; analogPin++) {
+  /*for (int analogPin = 0; analogPin < 3; analogPin++) {
     int sensor = analogRead(analogPin);
     dataString += String(sensor);
     if (analogPin < 2) {
       dataString += ",";
     }
-  }
+  }*/
 
   File dataFile = SD.open("datalog.txt", FILE_WRITE);
 
@@ -58,4 +58,5 @@ void loop() {
   else {
     Serial.println("error opening datalog.txt");
   }
+  
 }

@@ -1,5 +1,5 @@
 // Relais Steuerpin an Arduino 8
-const int relaisPin = 8;
+const int relaisPin = 3;
  
 void setup() {
   pinMode(relaisPin, OUTPUT);

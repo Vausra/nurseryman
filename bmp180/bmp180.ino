@@ -12,10 +12,20 @@ SFE_BMP180 pressure;
 
 double baseline; // baseline pressure
 
+// YL-39 + YL-69 humidity sensor
+//byte humidity_sensor_pin = A0;
+//byte humidity_sensor_vcc = 4;
+
 void setup()
 {
+  //pinMode(humidity_sensor_vcc, OUTPUT);
+  //pinMode(humidity_sensor_pin, INPUT);
+  //digitalWrite(humidity_sensor_vcc, LOW);
+  
+  
+  while (!Serial);
+  delay(1000);
   Serial.begin(9600);
-  Serial.println("REBOOT");
 
   if (pressure.begin())
     Serial.println("BMP180 init success");
@@ -25,12 +35,17 @@ void setup()
     while(1); // Pause forever.
   }
 
-   baseline = getPressure();
-  
-  Serial.print("baseline pressure: ");
-  Serial.print(baseline);
-  Serial.println(" mb");  
+ 
 }
+
+int read_humidity_sensor() {
+  //digitalWrite(humidity_sensor_vcc, HIGH);
+  //delay(500);
+  //int value = analogRead(humidity_sensor_pin);
+  //digitalWrite(humidity_sensor_vcc, LOW);
+  //return 1023 - value;
+}
+
 
 void loop()
 {
@@ -42,13 +57,19 @@ void loop()
   //  new and the baseline (old) reading
   a = pressure.altitude(P,baseline);
   
-  Serial.print("relative altitude: ");
+  /*Serial.print("relative altitude: ");
   if (a >= 0.0) Serial.print(" "); // add a space for positive numbers
   Serial.print(a,1);
   Serial.print(" meters, ");
   if (a >= 0.0) Serial.print(" "); // add a space for positive numbers
+*/
+  Serial.print("pressure: ");
+  Serial.print(P);
+  Serial.print("\n");
   
-  delay(500);
+  //Serial.print("Humidity Level (0-1023): ");
+  //Serial.println(read_humidity_sensor()); 
+  delay(2000);
 }
 
 
